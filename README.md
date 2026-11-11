@@ -1,5 +1,10 @@
+<!-- the header knows more than it shows -->
 <p align="center">
-  <img src="assets/header.svg" alt="hazekerr" width="100%">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/header-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/header-light.svg">
+  <img src="assets/header-dark.svg" alt="hazekerr" width="100%">
+</picture>
 </p>
 
 <h3 align="center">Security Engineer · Pentester · CTF @ br34kcore · Tool builder</h3>
@@ -9,8 +14,25 @@
 </p>
 
 ```bash
-$ cat about.txt
+$ xxd about.txt
+00000000: 7365 6375 7269 7479 2065 6e67 696e 6565  security enginee
+00000010: 7220 2620 746f 6f6c 2062 7569 6c64 6572  r & tool builder
+00000020: 2e20 636f 6469 6e67 2073 696e 6365 2032  . coding since 2
+00000030: 3032 322e 2049 2062 7265 616b 2074 6869  022. I break thi
+00000040: 6e67 7320 746f 2073 6565 2068 6f77 2074  ngs to see how t
+00000050: 6865 7920 776f 726b 2c20 7468 656e 2062  hey work, then b
+00000060: 7569 6c64 2074 6f6f 6c73 2074 6861 7420  uild tools that 
+00000070: 6361 7463 6820 7468 6520 7361 6d65 2062  catch the same b
+00000080: 7567 7320 6175 746f 6d61 7469 6361 6c6c  ugs automaticall
+00000090: 792e 2041 4920 6973 206d 7920 7061 6972  y. AI is my pair
+000000a0: 2070 726f 6772 616d 6d65 723b 2074 6865   programmer; the
+000000b0: 2064 6563 6973 696f 6e73 2061 6e64 2074   decisions and t
+000000c0: 6865 2063 6865 636b 7320 6172 6520 6d69  he checks are mi
+000000d0: 6e65 2e                                  ne.
 ```
+
+<details>
+<summary><code>decode</code></summary>
 
 <div align="justify">
 <p>
@@ -30,11 +52,20 @@ AI lets me move faster; it doesn't replace understanding what the code does.
 </p>
 </div>
 
+</details>
+
 ```bash
-$ ls ~/projects
+$ nmap -sV hazekerr
 ```
 
-### 🎛️ Kamertone &nbsp;<sub>`in development` · `private`</sub>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/nmap-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/nmap-light.svg">
+  <img src="assets/nmap-dark.svg" alt="nmap -sV hazekerr: kamertone, echolot, popolam, watermelon, ctfknife" width="100%">
+</picture>
+
+<details>
+<summary><b>🎛️ Kamertone</b> &nbsp;<sub>in development · private</sub></summary>
 
 Analyzer for IDS rules and antivirus signatures built on a SAT/SMT solver. It reads **Snort 3, Snort 2, Suricata, YARA and ClamAV** rule sets and, before the rules go live, finds:
 
@@ -45,11 +76,8 @@ Analyzer for IDS rules and antivirus signatures built on a SAT/SMT solver. It re
 
 For every issue it builds a sample packet (pcap) or file and checks it with the **real engine** (Snort 3, Suricata, yara-python, ClamAV), so each finding says whether the engine confirmed it. Works offline, as a web app and as a CLI.
 
-<details>
-<summary><code>how it works</code></summary>
-
 ```mermaid
-%%{init: {'theme':'base','themeVariables':{'primaryColor':'#0d1117','primaryTextColor':'#c9d1d9','primaryBorderColor':'#3fb950','lineColor':'#3fb950','secondaryColor':'#161b22','tertiaryColor':'#161b22','fontFamily':'monospace'}}}%%
+%%{init: {'theme':'neutral','themeVariables':{'lineColor':'#2ea043','primaryBorderColor':'#2ea043','fontFamily':'monospace'}}}%%
 flowchart LR
   A[Rule set<br/>Snort · Suricata<br/>YARA · ClamAV] --> B[Parsers<br/>common rule model]
   B --> E{Z3 checks}
@@ -60,13 +88,12 @@ flowchart LR
   J --> K[Report]
 ```
 
-</details>
-
 `Python` `Z3` `FastAPI` `PostgreSQL` `SQLAlchemy` `htmx` `Docker` `Caddy`
 
----
+</details>
 
-### 🔦 Echolot &nbsp;<sub>`v2.17` · `private`</sub>
+<details>
+<summary><b>🔦 Echolot</b> &nbsp;<sub>v2.17 · private</sub></summary>
 
 Desktop monitor that watches local folders, network shares and USB drives and looks for sensitive data inside files: personal data, passwords, card numbers, classification marks. Matching files are moved to quarantine or a protected folder by rules, and the rules themselves are checked for **overlaps with a SAT solver**.
 
@@ -75,11 +102,8 @@ Desktop monitor that watches local folders, network shares and USB drives and lo
 - rules with AND / OR / NOT, dry-run mode, tamper-evident journal (SHA-256 hash chain)
 - runs on Windows 7 and newer, 218 automated tests
 
-<details>
-<summary><code>how it works</code></summary>
-
 ```mermaid
-%%{init: {'theme':'base','themeVariables':{'primaryColor':'#0d1117','primaryTextColor':'#c9d1d9','primaryBorderColor':'#3fb950','lineColor':'#3fb950','secondaryColor':'#161b22','tertiaryColor':'#161b22','fontFamily':'monospace'}}}%%
+%%{init: {'theme':'neutral','themeVariables':{'lineColor':'#2ea043','primaryBorderColor':'#2ea043','fontFamily':'monospace'}}}%%
 flowchart LR
   A[Folders · shares · USB] --> B[Text extraction<br/>docx · pdf · xlsx · archives]
   B --> C[Filters<br/>what was found]
@@ -89,33 +113,36 @@ flowchart LR
   E --> J[(Hash-chained journal)]
 ```
 
-</details>
-
 `Python` `PyQt5` `Z3` `watchdog` `SQLite`
 
----
+</details>
 
-### 🐣 Popolam &nbsp;<sub>`Telegram Mini App` · `private`</sub>
+<details>
+<summary><b>🐣 Popolam</b> &nbsp;<sub>Telegram Mini App · private</sub></summary>
 
 A Telegram Mini App for couples: two people raise one shared pixel pet. Daily tasks keep the pet growing and a streak "flame" alive, and there are ten mini-games, a wardrobe and shop, achievements and a weekly tournament.
 
 `JavaScript` `Node.js` `WebSocket` `PostgreSQL` `Supabase` `Render`
 
----
+</details>
 
-### 🍉 Watermelon on the Run &nbsp;<sub>[`play in browser`](https://hazekerr.github.io/watermelon-on-the-run/) · [`repo`](https://github.com/hazekerr/watermelon-on-the-run)</sub>
+<details>
+<summary><b>🍉 Watermelon on the Run</b> &nbsp;<sub><a href="https://hazekerr.github.io/watermelon-on-the-run/">play in browser</a> · <a href="https://github.com/hazekerr/watermelon-on-the-run">repo</a></sub></summary>
 
 3D browser runner: a watermelon escapes the Astrakhan market with a knife-wielding vendor on its tail. Five zones, bosses, eight story endings, endless / rhythm / market-heist / Volga-boat modes, weather and day/night cycle. One HTML file on Three.js.
 
 `JavaScript` `Three.js`
 
----
+</details>
 
-### 🔪 ctfknife &nbsp;<sub>[`repo`](https://github.com/hazekerr/ctfknife)</sub>
+<details>
+<summary><b>🔪 ctfknife</b> &nbsp;<sub><a href="https://github.com/hazekerr/ctfknife">repo</a></sub></summary>
 
 Modular command-line toolkit for CTF. Plugins are discovered automatically: base64 / hex / binary / URL converter, Caesar and ROT, magic-byte detection, strings extraction and an LSB steganography decoder with auto-scan. Flags are highlighted in the output.
 
 `Python` `rich` `Pillow`
+
+</details>
 
 ```bash
 $ cat ctf.md
@@ -127,7 +154,7 @@ I play CTF with team **br34kcore**. Events so far include **DUCKERZ CTF** and **
 <summary><code>how it works</code></summary>
 
 ```mermaid
-%%{init: {'theme':'base','themeVariables':{'primaryColor':'#0d1117','primaryTextColor':'#c9d1d9','primaryBorderColor':'#3fb950','lineColor':'#3fb950','secondaryColor':'#161b22','tertiaryColor':'#161b22','fontFamily':'monospace'}}}%%
+%%{init: {'theme':'neutral','themeVariables':{'lineColor':'#2ea043','primaryBorderColor':'#2ea043','fontFamily':'monospace'}}}%%
 flowchart TD
   A[Task file / service] --> B[Recon<br/>file · strings · magic bytes]
   B -->|pcap, image, disk| F[Forensics<br/>Wireshark · carving]
@@ -202,7 +229,19 @@ $ git log --graph
 ```
 
 <p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/hazekerr/hazekerr/output/snake-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/hazekerr/hazekerr/output/snake-light.svg">
+  <img width="100%" src="https://raw.githubusercontent.com/hazekerr/hazekerr/output/snake-dark.svg" alt="snake eating contributions">
+</picture>
+</p>
+
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-activity-graph.vercel.app/graph?username=hazekerr&bg_color=0d1117&color=c9d1d9&line=3fb950&point=c9d1d9&area=true&area_color=3fb950&hide_border=true">
+  <source media="(prefers-color-scheme: light)" srcset="https://github-readme-activity-graph.vercel.app/graph?username=hazekerr&bg_color=ffffff&color=1f2328&line=1a7f37&point=1f2328&area=true&area_color=1a7f37&hide_border=true">
   <img width="100%" src="https://github-readme-activity-graph.vercel.app/graph?username=hazekerr&bg_color=0d1117&color=c9d1d9&line=3fb950&point=c9d1d9&area=true&area_color=3fb950&hide_border=true" alt="activity">
+</picture>
 </p>
 
 ```bash
@@ -211,6 +250,10 @@ $ mpv --playlist on_repeat
 
 🎧 Fortuna 812 · LSP · Plenka
 
-```bash
-$ exit
-```
+<p align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/footer-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="assets/footer-light.svg">
+  <img src="assets/footer-dark.svg" alt="exit" width="100%">
+</picture>
+</p>
