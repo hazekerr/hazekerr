@@ -2,7 +2,11 @@
   <img src="assets/header.svg" alt="hazekerr" width="100%">
 </p>
 
-<h3 align="center">Information Security Engineer · Pentest · CTF player @ br34kcore · Developer</h3>
+<h3 align="center">Security Engineer · Pentester · CTF @ br34kcore · Tool builder</h3>
+
+<p align="center">
+  <a href="https://t.me/hazeker"><img src="https://img.shields.io/badge/telegram-@hazeker-0d1117?style=for-the-badge&logo=telegram&logoColor=3fb950&labelColor=0d1117&color=161b22" alt="Telegram"></a>
+</p>
 
 ```bash
 $ cat about.txt
@@ -41,6 +45,9 @@ Analyzer for IDS rules and antivirus signatures built on a SAT/SMT solver. It re
 
 For every issue it builds a sample packet (pcap) or file and checks it with the **real engine** (Snort 3, Suricata, yara-python, ClamAV), so each finding says whether the engine confirmed it. Works offline, as a web app and as a CLI.
 
+<details>
+<summary><code>how it works</code></summary>
+
 ```mermaid
 %%{init: {'theme':'base','themeVariables':{'primaryColor':'#0d1117','primaryTextColor':'#c9d1d9','primaryBorderColor':'#3fb950','lineColor':'#3fb950','secondaryColor':'#161b22','tertiaryColor':'#161b22','fontFamily':'monospace'}}}%%
 flowchart LR
@@ -52,6 +59,8 @@ flowchart LR
   F & G & H --> J[Sample pcap / file<br/>confirmed by real engine]
   J --> K[Report]
 ```
+
+</details>
 
 `Python` `Z3` `FastAPI` `PostgreSQL` `SQLAlchemy` `htmx` `Docker` `Caddy`
 
@@ -66,6 +75,9 @@ Desktop monitor that watches local folders, network shares and USB drives and lo
 - rules with AND / OR / NOT, dry-run mode, tamper-evident journal (SHA-256 hash chain)
 - runs on Windows 7 and newer, 218 automated tests
 
+<details>
+<summary><code>how it works</code></summary>
+
 ```mermaid
 %%{init: {'theme':'base','themeVariables':{'primaryColor':'#0d1117','primaryTextColor':'#c9d1d9','primaryBorderColor':'#3fb950','lineColor':'#3fb950','secondaryColor':'#161b22','tertiaryColor':'#161b22','fontFamily':'monospace'}}}%%
 flowchart LR
@@ -77,6 +89,8 @@ flowchart LR
   E --> J[(Hash-chained journal)]
 ```
 
+</details>
+
 `Python` `PyQt5` `Z3` `watchdog` `SQLite`
 
 ---
@@ -84,15 +98,6 @@ flowchart LR
 ### 🐣 Popolam &nbsp;<sub>`Telegram Mini App` · `private`</sub>
 
 A Telegram Mini App for couples: two people raise one shared pixel pet. Daily tasks keep the pet growing and a streak "flame" alive, and there are ten mini-games, a wardrobe and shop, achievements and a weekly tournament.
-
-```mermaid
-%%{init: {'theme':'base','themeVariables':{'primaryColor':'#0d1117','primaryTextColor':'#c9d1d9','primaryBorderColor':'#3fb950','lineColor':'#3fb950','secondaryColor':'#161b22','tertiaryColor':'#161b22','fontFamily':'monospace'}}}%%
-flowchart LR
-  T[Telegram bot] --> M[Mini App<br/>custom pixel engine]
-  M <-->|WebSocket| S[Node.js server]
-  S --> D[(PostgreSQL<br/>Supabase)]
-  S -.->|hosted on| R[Render]
-```
 
 `JavaScript` `Node.js` `WebSocket` `PostgreSQL` `Supabase` `Render`
 
@@ -104,19 +109,14 @@ flowchart LR
 
 `JavaScript` `Three.js`
 
----
-
-### 🔪 ctfknife &nbsp;<sub>[`repo`](https://github.com/hazekerr/ctfknife)</sub>
-
-Modular command-line toolkit for CTF. Plugins are discovered automatically: encodings and classic ciphers (Caesar, ROT13, ROT47), magic-byte detection, strings extraction and an LSB steganography decoder with auto-scan.
-
-`Python` `rich`
-
 ```bash
 $ cat ctf.md
 ```
 
 I play CTF with team **br34kcore**. Events so far include **DUCKERZ CTF** and **SolarCTF**. My focus is forensics and steganography, and I'm moving into pentest and networks.
+
+<details>
+<summary><code>how it works</code></summary>
 
 ```mermaid
 %%{init: {'theme':'base','themeVariables':{'primaryColor':'#0d1117','primaryTextColor':'#c9d1d9','primaryBorderColor':'#3fb950','lineColor':'#3fb950','secondaryColor':'#161b22','tertiaryColor':'#161b22','fontFamily':'monospace'}}}%%
@@ -129,6 +129,8 @@ flowchart TD
   F & C & S & W --> X[Script it]
   X --> FLAG((FLAG))
 ```
+
+</details>
 
 **Toolkit:** Kali Linux · Wireshark · CyberChef · Ghidra · Python · ctfknife
 
@@ -199,7 +201,7 @@ $ git log --graph
 $ mpv --playlist on_repeat
 ```
 
-🎧 Fortuna 812 · LSP · Plenka · [full playlist on Yandex Music](https://music.yandex.ru/playlists/lk.dbe4055c-b638-4366-8c2d-74d3b9e0d6f4)
+🎧 Fortuna 812 · LSP · Plenka
 
 ```bash
 $ exit
