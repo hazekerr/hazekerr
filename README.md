@@ -109,6 +109,14 @@ A Telegram Mini App for couples: two people raise one shared pixel pet. Daily ta
 
 `JavaScript` `Three.js`
 
+---
+
+### 🔪 ctfknife &nbsp;<sub>[`repo`](https://github.com/hazekerr/ctfknife)</sub>
+
+Modular command-line toolkit for CTF. Plugins are discovered automatically: base64 / hex / binary / URL converter, Caesar and ROT, magic-byte detection, strings extraction and an LSB steganography decoder with auto-scan. Flags are highlighted in the output.
+
+`Python` `rich` `Pillow`
+
 ```bash
 $ cat ctf.md
 ```
@@ -132,7 +140,7 @@ flowchart TD
 
 </details>
 
-**Toolkit:** Kali Linux · Wireshark · CyberChef · Ghidra · Python · ctfknife
+**Toolkit:** Kali Linux · Wireshark · CyberChef · Ghidra · Python · [ctfknife](https://github.com/hazekerr/ctfknife)
 
 ```bash
 $ which --all tools
