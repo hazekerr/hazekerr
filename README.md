@@ -2,52 +2,204 @@
   <img src="assets/header.svg" alt="hazekerr" width="100%">
 </p>
 
+<h3 align="center">Information Security Engineer · Pentest · CTF player @ br34kcore · Developer</h3>
+
 ```bash
 $ cat about.txt
 ```
 
-- 🎓 I study telecommunications and information security
-- 🚩 Learning CTF: **crypto · forensics · steganography**
-- 🛠️ I like building things: desktop tools, Telegram mini apps, browser games
-- 🐧 Daily driver: Linux
+<div align="justify">
+<p>
+I've been writing code since 2022 and quickly ended up on the security side of it. What I enjoy most is
+breaking things to understand how they work, and then building tools that find the same problems automatically.
+</p>
+<p>
+Most of my projects sit where security meets formal methods: I use SAT/SMT solvers (Z3) to check
+IDS rules, antivirus signatures and DLP policies for conflicts and dead rules before they reach production.
+Next to that I build Telegram Mini Apps and small browser games, because shipping something people actually
+play is the best way to learn.
+</p>
+<p>
+I work with AI as a teammate. Claude helps me prototype, write tests, review code and dig through
+unfamiliar formats, while I decide what to build, how it should work and verify every result.
+AI lets me move faster; it doesn't replace understanding what the code does.
+</p>
+</div>
 
 ```bash
 $ ls ~/projects
 ```
 
-| project | what it does | stack |
-|---|---|---|
-| **Kamertone** | Analyzes IDS rules and AV signatures (Snort, Suricata, YARA, ClamAV) with a SAT/SMT solver: finds rules that never fire, action conflicts, duplicates and overlaps, then builds a sample packet or file for each issue and checks it with the real engine | `Python` `Z3` `FastAPI` `PostgreSQL` `Docker` |
-| **Echolot** | Watches local and network folders for sensitive data (personal data, passwords, card numbers, classification marks), moves matches to quarantine by rules and checks the rules for overlaps with a SAT solver | `Python` `PyQt5` `Z3` |
-| **Popolam** | Telegram Mini App for couples: two people raise one shared pixel pet, keep a daily streak and play mini-games together | `Node.js` `PostgreSQL` `WebSocket` |
-| **Watermelon on the Run** | 3D browser runner: a watermelon escapes the Astrakhan market. Five zones, bosses, eight endings | `Three.js` |
-| **ctfknife** | Modular CLI toolkit for CTF: encodings, classic ciphers, magic bytes, strings, LSB stego | `Python` `rich` |
+### 🎛️ Kamertone &nbsp;<sub>`in development` · `private`</sub>
+
+Analyzer for IDS rules and antivirus signatures built on a SAT/SMT solver. It reads **Snort 3, Snort 2, Suricata, YARA and ClamAV** rule sets and, before the rules go live, finds:
+
+- rules that can never fire;
+- action conflicts: `pass` and `drop` on the same traffic, or `pass` taking traffic before another rule sees it;
+- duplicates and rules fully covered by others;
+- overlaps between rules with different actions, and differences between two versions of a rule set.
+
+For every issue it builds a sample packet (pcap) or file and checks it with the **real engine** (Snort 3, Suricata, yara-python, ClamAV), so each finding says whether the engine confirmed it. Works offline, as a web app and as a CLI.
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'primaryColor':'#0d1117','primaryTextColor':'#c9d1d9','primaryBorderColor':'#3fb950','lineColor':'#3fb950','secondaryColor':'#161b22','tertiaryColor':'#161b22','fontFamily':'monospace'}}}%%
+flowchart LR
+  A[Rule set<br/>Snort · Suricata<br/>YARA · ClamAV] --> B[Parsers<br/>common rule model]
+  B --> E{Z3 checks}
+  E --> F[Dead rules]
+  E --> G[Conflicts]
+  E --> H[Duplicates<br/>& overlaps]
+  F & G & H --> J[Sample pcap / file<br/>confirmed by real engine]
+  J --> K[Report]
+```
+
+`Python` `Z3` `FastAPI` `PostgreSQL` `SQLAlchemy` `htmx` `Docker` `Caddy`
+
+---
+
+### 🔦 Echolot &nbsp;<sub>`v2.17` · `private`</sub>
+
+Desktop monitor that watches local folders, network shares and USB drives and looks for sensitive data inside files: personal data, passwords, card numbers, classification marks. Matching files are moved to quarantine or a protected folder by rules, and the rules themselves are checked for **overlaps with a SAT solver**.
+
+- 16 built-in filters plus custom word lists and regular expressions
+- reads Word, Excel, PDF, text, CSV, e-mail and archives (zip, 7z, rar)
+- rules with AND / OR / NOT, dry-run mode, tamper-evident journal (SHA-256 hash chain)
+- runs on Windows 7 and newer, 218 automated tests
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'primaryColor':'#0d1117','primaryTextColor':'#c9d1d9','primaryBorderColor':'#3fb950','lineColor':'#3fb950','secondaryColor':'#161b22','tertiaryColor':'#161b22','fontFamily':'monospace'}}}%%
+flowchart LR
+  A[Folders · shares · USB] --> B[Text extraction<br/>docx · pdf · xlsx · archives]
+  B --> C[Filters<br/>what was found]
+  C --> D[Rules<br/>AND / OR / NOT]
+  D --> E[Action<br/>quarantine · move · log]
+  D -.-> S[SAT solver<br/>checks rules for overlaps]
+  E --> J[(Hash-chained journal)]
+```
+
+`Python` `PyQt5` `Z3` `watchdog` `SQLite`
+
+---
+
+### 🐣 Popolam &nbsp;<sub>`Telegram Mini App` · `private`</sub>
+
+A Telegram Mini App for couples: two people raise one shared pixel pet. Daily tasks keep the pet growing and a streak "flame" alive, and there are ten mini-games, a wardrobe and shop, achievements and a weekly tournament.
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'primaryColor':'#0d1117','primaryTextColor':'#c9d1d9','primaryBorderColor':'#3fb950','lineColor':'#3fb950','secondaryColor':'#161b22','tertiaryColor':'#161b22','fontFamily':'monospace'}}}%%
+flowchart LR
+  T[Telegram bot] --> M[Mini App<br/>custom pixel engine]
+  M <-->|WebSocket| S[Node.js server]
+  S --> D[(PostgreSQL<br/>Supabase)]
+  S -.->|hosted on| R[Render]
+```
+
+`JavaScript` `Node.js` `WebSocket` `PostgreSQL` `Supabase` `Render`
+
+---
+
+### 🍉 Watermelon on the Run &nbsp;<sub>[`play in browser`](https://hazekerr.github.io/watermelon-on-the-run/) · [`repo`](https://github.com/hazekerr/watermelon-on-the-run)</sub>
+
+3D browser runner: a watermelon escapes the Astrakhan market with a knife-wielding vendor on its tail. Five zones, bosses, eight story endings, endless / rhythm / market-heist / Volga-boat modes, weather and day/night cycle. One HTML file on Three.js.
+
+`JavaScript` `Three.js`
+
+---
+
+### 🔪 ctfknife &nbsp;<sub>[`repo`](https://github.com/hazekerr/ctfknife)</sub>
+
+Modular command-line toolkit for CTF. Plugins are discovered automatically: encodings and classic ciphers (Caesar, ROT13, ROT47), magic-byte detection, strings extraction and an LSB steganography decoder with auto-scan.
+
+`Python` `rich`
+
+```bash
+$ cat ctf.md
+```
+
+I play CTF with team **br34kcore**. Events so far include **DUCKERZ CTF** and **SolarCTF**. My focus is forensics and steganography, and I'm moving into pentest and networks.
+
+```mermaid
+%%{init: {'theme':'base','themeVariables':{'primaryColor':'#0d1117','primaryTextColor':'#c9d1d9','primaryBorderColor':'#3fb950','lineColor':'#3fb950','secondaryColor':'#161b22','tertiaryColor':'#161b22','fontFamily':'monospace'}}}%%
+flowchart TD
+  A[Task file / service] --> B[Recon<br/>file · strings · magic bytes]
+  B -->|pcap, image, disk| F[Forensics<br/>Wireshark · carving]
+  B -->|cipher text, keys| C[Crypto<br/>CyberChef · Python]
+  B -->|picture, audio| S[Stego<br/>LSB · metadata]
+  B -->|web app, binary| W[Web / Reverse<br/>DevTools · Ghidra]
+  F & C & S & W --> X[Script it]
+  X --> FLAG((FLAG))
+```
+
+**Toolkit:** Kali Linux · Wireshark · CyberChef · Ghidra · Python · ctfknife
 
 ```bash
 $ which --all tools
 ```
 
-<p align="left">
-  <img src="https://skillicons.dev/icons?i=py,js,nodejs,html,css,fastapi,postgres,docker,threejs,qt,bash,linux,kali,git,matlab,vscode&theme=dark&perline=16" alt="stack">
-</p>
+<p align="left"><b>Languages</b></p>
 
-![Wireshark](https://img.shields.io/badge/Wireshark-0d1117?style=flat-square&logo=wireshark&logoColor=3fb950)
-![CyberChef](https://img.shields.io/badge/CyberChef-0d1117?style=flat-square&logo=codechef&logoColor=3fb950)
-![Telegram Mini Apps](https://img.shields.io/badge/Telegram_Mini_Apps-0d1117?style=flat-square&logo=telegram&logoColor=3fb950)
-![Z3](https://img.shields.io/badge/Z3_SAT-0d1117?style=flat-square&logoColor=3fb950)
+![Python](https://img.shields.io/badge/python-0d1117?style=for-the-badge&logo=python&logoColor=3fb950)
+![JavaScript](https://img.shields.io/badge/javascript-0d1117?style=for-the-badge&logo=javascript&logoColor=3fb950)
+![HTML5](https://img.shields.io/badge/html5-0d1117?style=for-the-badge&logo=html5&logoColor=3fb950)
+![CSS3](https://img.shields.io/badge/css3-0d1117?style=for-the-badge&logo=css&logoColor=3fb950)
+![Bash](https://img.shields.io/badge/bash-0d1117?style=for-the-badge&logo=gnubash&logoColor=3fb950)
+![MATLAB](https://img.shields.io/badge/matlab-0d1117?style=for-the-badge&logo=mathworks&logoColor=3fb950)
+
+<p align="left"><b>Backend & data</b></p>
+
+![Node.js](https://img.shields.io/badge/node.js-0d1117?style=for-the-badge&logo=nodedotjs&logoColor=3fb950)
+![FastAPI](https://img.shields.io/badge/fastapi-0d1117?style=for-the-badge&logo=fastapi&logoColor=3fb950)
+![PostgreSQL](https://img.shields.io/badge/postgresql-0d1117?style=for-the-badge&logo=postgresql&logoColor=3fb950)
+![SQLite](https://img.shields.io/badge/sqlite-0d1117?style=for-the-badge&logo=sqlite&logoColor=3fb950)
+![Docker](https://img.shields.io/badge/docker-0d1117?style=for-the-badge&logo=docker&logoColor=3fb950)
+![Supabase](https://img.shields.io/badge/supabase-0d1117?style=for-the-badge&logo=supabase&logoColor=3fb950)
+
+<p align="left"><b>Security & formal methods</b></p>
+
+![Kali](https://img.shields.io/badge/kali_linux-0d1117?style=for-the-badge&logo=kalilinux&logoColor=3fb950)
+![Wireshark](https://img.shields.io/badge/wireshark-0d1117?style=for-the-badge&logo=wireshark&logoColor=3fb950)
+![Ghidra](https://img.shields.io/badge/ghidra-0d1117?style=for-the-badge&logo=ghidra&logoColor=3fb950)
+![CyberChef](https://img.shields.io/badge/cyberchef-0d1117?style=for-the-badge&logoColor=3fb950)
+![Snort](https://img.shields.io/badge/snort-0d1117?style=for-the-badge&logoColor=3fb950)
+![Suricata](https://img.shields.io/badge/suricata-0d1117?style=for-the-badge&logoColor=3fb950)
+![YARA](https://img.shields.io/badge/yara-0d1117?style=for-the-badge&logoColor=3fb950)
+![Z3](https://img.shields.io/badge/z3_smt-0d1117?style=for-the-badge&logoColor=3fb950)
+
+<p align="left"><b>Interfaces & graphics</b></p>
+
+![Qt](https://img.shields.io/badge/pyqt5-0d1117?style=for-the-badge&logo=qt&logoColor=3fb950)
+![Three.js](https://img.shields.io/badge/three.js-0d1117?style=for-the-badge&logo=threedotjs&logoColor=3fb950)
+![Telegram](https://img.shields.io/badge/telegram_mini_apps-0d1117?style=for-the-badge&logo=telegram&logoColor=3fb950)
+
+<p align="left"><b>AI & workflow</b></p>
+
+![Claude](https://img.shields.io/badge/claude-0d1117?style=for-the-badge&logo=anthropic&logoColor=3fb950)
+![Git](https://img.shields.io/badge/git-0d1117?style=for-the-badge&logo=git&logoColor=3fb950)
+![Linux](https://img.shields.io/badge/linux-0d1117?style=for-the-badge&logo=linux&logoColor=3fb950)
+![VS Code](https://img.shields.io/badge/vs_code-0d1117?style=for-the-badge&logo=vscodium&logoColor=3fb950)
 
 ```bash
-$ git log --stat | head
+$ cat now.md
 ```
 
-<p align="center">
-  <img height="165" src="https://github-readme-stats.vercel.app/api?username=hazekerr&show_icons=true&count_private=true&include_all_commits=true&hide_border=true&bg_color=0d1117&title_color=3fb950&icon_color=3fb950&text_color=c9d1d9" alt="stats">
-  <img height="165" src="https://streak-stats.demolab.com?user=hazekerr&hide_border=true&background=0d1117&ring=3fb950&fire=3fb950&currStreakLabel=3fb950&sideLabels=c9d1d9&currStreakNum=c9d1d9&sideNums=c9d1d9&dates=8b949e" alt="streak">
-</p>
+- 🎛️ **Kamertone:** finishing the web interface and confirmation of findings by real engines
+- 🐣 **Popolam:** new features for the shared pet and tournaments
+- 🚩 **CTF:** playing with br34kcore, collecting forensics and stego tricks
+- 📚 **Learning:** pentest, networks, forensics, steganography
+
+```bash
+$ git log --graph
+```
 
 <p align="center">
   <img width="100%" src="https://github-readme-activity-graph.vercel.app/graph?username=hazekerr&bg_color=0d1117&color=c9d1d9&line=3fb950&point=c9d1d9&area=true&area_color=3fb950&hide_border=true" alt="activity">
 </p>
+
+```bash
+$ mpv --playlist on_repeat
+```
+
+🎧 Fortuna 812 · LSP · Plenka · [full playlist on Yandex Music](https://music.yandex.ru/playlists/lk.dbe4055c-b638-4366-8c2d-74d3b9e0d6f4)
 
 ```bash
 $ exit
